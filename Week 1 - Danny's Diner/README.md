@@ -4,11 +4,11 @@
 ![picturelogo](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/W1.png)
 
 ### TABLE OF CONTENTS 📖
-* [What's Cooking?](#what's-cooking)
-* [Problem Statement](#problem-statement)
-* [Datasets](#datasets)
-* [Case Study Solutions](#case-study-solutions)
-* [Bonus Questions](#bonus-questions)
+* [What's Cooking? 🍜](#what's-cooking)
+* [Problem Statement 🔨](#problem-statement)
+* [Datasets 💻](#datasets)
+* [Case Study Solutions 🔑](#case-study-solutions)
+* [Bonus Questions 💃🏻](#bonus-questions)
 
 
 
@@ -48,13 +48,44 @@ Danny's shared 3 key tables for us to work with:
 
 The <code> sales </code> table captures all <code> customer_id </code> level purchases with an corresponding <code> order_date </code> and <code> product_id </code> information for when and what menu items were ordered.
 
+|Customer ID|Order Date|Product ID|
+|---|---|---|
+|A| 2021-01-01| 1|
+|A| 2021-01-01| 2|
+|A| 2021-01-07| 2|
+|A| 2021-01-10| 3|
+|A| 2021-01-11| 3|
+|A| 2021-01-11| 3|
+|B| 2021-01-01| 2|
+|B| 2021-01-02| 2|
+|B| 2021-01-04| 1|
+|B| 2021-01-11| 1|
+|B| 2021-01-16| 3|
+|B| 2021-02-01| 3|
+|C| 2021-01-01| 3|
+|C| 2021-01-01| 3|
+|C| 2021-01-07| 3|
+
   * ### <code> Menu </code>
 
 The <code> menu </code> table maps the <code> product_id </code> to the actual <code> product_name </code> and price of each menu item.
 
+|Product ID|Product Name|Price|
+|---|---|---|
+|1| sushi| 10|
+|2| curry| 15|
+|3| ramen| 12|
+
+
   * ### <code> Members </code>
 
 The final <code> members </code> table captures the <code> join_date </code> when a <code> customer_id </code> joined the beta version of the Danny’s Diner loyalty program.
+
+|Customer ID|Join Date|
+|---|---|
+|A| 2021-01-07|
+|B| 2021-01-09|
+
 
 
 # Case Study Solutions 🔑 <a name="case-study-solutions"></a>
@@ -62,6 +93,28 @@ The final <code> members </code> table captures the <code> join_date </code> whe
 Danny's got his dream diner running, but boy does he have a lot of questions he wanted answers to. Luckily, I have all of the solutions executed using single line SQL queries.
 
 Let me take you through each of them!
+
+#### Question 1: What is the total amount each customer spent at the restaurant?
+
+#### Difficulty Level: 🔘 🔘
+
+```sql
+select s.customer_id AS MEMBER_NAME, SUM(m.price) AS AMOUNT_SPENT
+FROM sales AS s INNER JOIN menu AS m 
+ON s.product_id = m.product_id
+GROUP BY customer_id
+ORDER BY customer_id;
+
+```
+|Member_Name|Amount_Spent|
+|---|---|
+|A| 76|
+|B| 74|
+|C| 36|
+
+Customer A is the biggest spender of them all with a whopping 76$! That's a lot of yummy sushi! 
+
+
 
 
 # Bonus Questions! 💃🏻 <a name="bonus-questions"></a>

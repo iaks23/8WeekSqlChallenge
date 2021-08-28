@@ -114,7 +114,23 @@ ORDER BY customer_id;
 
 Customer A is the biggest spender of them all with a whopping 76$! That's a lot of yummy sushi! 
 
+#### Question 2: How many days has each customer visited the restaurant?
 
+#### Difficulty Level: 🔘
+
+```sql
+SELECT customer_id AS MEMBER_NAME, COUNT(DISTINCT order_date) AS NO_OF_DAYS_VISITED
+FROM sales
+GROUP BY customer_id;
+
+```
+|Member_Name|NO OF DAYS VISITED|
+|---|---|
+|A| 4|
+|B| 6|
+|C| 2|
+
+Customer B seems to be a frequent visitor, Danny's Diner needs to start thinking of a discount program!
 
 
 # Bonus Questions! 💃🏻 <a name="bonus-questions"></a>

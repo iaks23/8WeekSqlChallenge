@@ -327,7 +327,73 @@ GROUP BY s.customer_id;
 
 Customer B takes the lead with 940 points, followed by A with 860, and C with 360. Hope they use these points up for some good discounts!
 
+#### Question 10: In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 
+#### Difficulty Level: 🥵
+
+Now this one had me stumped for quite a while and the only way to tackle this is to divide the question up and answer each part individually. 
+
+Firstly: We need to find out the validity of the 2X points program for those who become members, this means that any item that a member buys within a week of their membership is worth 2x the points. 
+
+```sql
+
+WITH valid_dates_cte AS
+(
+    SELECT *,
+    DATEADD(DAY, 6, join_date) AS valid_date,
+    EOMONTH('2021-01-31') AS last_date
+    FROM members AS mem
+)
+
+
+```
+
+Secondly: Conditions. Conditions. Conditions.
+
+There are 4 conditions to be checked for:
+
+1. Calculate the validity of the 2X points, for all items for all memmbers.
+2. Calculate 2x points for anyone who buys Sushi. 
+3. Apply condition from previous question of providing 1x points on items other than Sushi.
+4. Calculate all this only for the month of January.
+
+```sql
+
+SELECT v.customer_id, v.join_date, v.valid_date, v.last_date, s.order_date, m.product_name, m.price,
+SUM(CASE
+    WHEN s.order_date >= v.join_date AND s.order_date < v.valid_date THEN 2 * 10 * m.price 
+    WHEN m.product_name = 'SUSHI' THEN 2 * 10 * m.price
+    ELSE 10 * m.price 
+    END) AS points 
+FROM valid_dates_cte AS v JOIN
+sales AS s ON v.customer_id = s.customer_id 
+JOIN menu AS m 
+ON s.product_id = m.product_id
+WHERE s.order_date < v.last_date
+GROUP BY v.customer_id, s.order_date, v.join_date, v.valid_date, v.last_date, m.product_name, m.price;
+
+
+```
+
+
+|Customer Id|Join Date|Valid Date|Last Date|Order Date| Product Name|Price|Points|
+|---|---|---|---|---|---|---|---|
+|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-01| curry| 15| 150|
+|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-01| sushi| 10| 200|
+|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-07| curry| 15| 300|
+|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-10| ramen| 12| 240|
+|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-11| ramen| 12| 480|
+|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-01| curry| 15| 150|
+|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-02| curry| 15| 300|
+|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-04| sushi| 10| 200|
+|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-11| sushi| 10| 400|
+|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-16| ramen| 12| 120|
+
+
+By the end of January:
+
+Customer A's total points: 1130
+Customer B's total points: 820
 
 
 # Bonus Questions! 💃🏻 <a name="bonus-questions"></a>

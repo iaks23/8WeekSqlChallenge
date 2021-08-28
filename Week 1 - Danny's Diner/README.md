@@ -487,7 +487,7 @@ FROM overall_rank_cte;
 
 ----------------------
 
-![amazing](https://giphy.com/gifs/parksandrec-season-6-parks-and-recreation-rec-1RmrUjlKGKmehcM7Ag)
+![amazing](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/Donna.GIF)
 
 
 Is it just me, or is anybody else really hungry for some ramen? Feedback & suggestions are welcome!

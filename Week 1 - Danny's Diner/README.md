@@ -134,7 +134,7 @@ Customer B seems to be a frequent visitor, Danny's Diner needs to start thinking
 
 #### Question 3: What was the first item from the menu purchased by each customer?
 
-#### Difficulty Level:
+#### Difficulty Level: 🔘🔘
 
 ```sql
 
@@ -163,7 +163,7 @@ Well, you know what they say, you always remember your firsts!
 
 #### Question 4: What is the most purchased item on the menu and how many times was it purchased by all customers?
 
-#### Difficulty Level:
+#### Difficulty Level: 🔘🔘
 
 ```sql
 
@@ -187,7 +187,7 @@ I wonder if there's a secret ingrediant that goes into the Ramen to make it such
 
 #### Question 5: Which item was the most popular for each customer?
 
-#### Difficulty Level:
+#### Difficulty Level: 🔘🔘🔘
 
 ```sql
 

@@ -132,10 +132,92 @@ GROUP BY customer_id;
 
 Customer B seems to be a frequent visitor, Danny's Diner needs to start thinking of a discount program!
 
+#### Question 3: What was the first item from the menu purchased by each customer?
+
+#### Difficulty Level:
+
+```sql
+
+WITH cte_order AS (
+    SELECT s.customer_id, m.product_name,
+    ROW_NUMBER() OVER(
+        PARTITION BY s.customer_id
+        ORDER BY s.order_date,
+        s.product_id
+    ) AS first_purchase
+    FROM sales AS s JOIN menu AS m
+    ON s.product_id = m.product_id
+)
+
+SELECT * from cte_order WHERE first_purchase = 1;
+
+```
+|Customer Id|Product Name|First Purchase|
+|---|---|---|
+|A| sushi|1|
+|B| curry|1|
+|C| ramen|1|
+
+Well, you know what they say, you always remember your firsts! 
+
+
+#### Question 4: What is the most purchased item on the menu and how many times was it purchased by all customers?
+
+#### Difficulty Level:
+
+```sql
+
+SELECT TOP 1 m.product_name, COUNT(s.product_id) AS PURCHASE_COUNT
+FROM sales AS s INNER JOIN menu AS m
+ON s.product_id = m.product_id
+GROUP BY product_name
+ORDER BY PURCHASE_COUNT DESC;
+)
+
+SELECT * from cte_order WHERE first_purchase = 1;
+
+```
+|Product Name|Purchase Count|
+|---|---|
+|Ramen| 8|
+
+
+I wonder if there's a secret ingrediant that goes into the Ramen to make it such a top seller! 
+
+
+#### Question 5: Which item was the most popular for each customer?
+
+#### Difficulty Level:
+
+```sql
+
+WITH popular_order_cte AS (
+    SELECT s.customer_id, m.product_name, COUNT(s.product_id) AS order_count,
+    ROW_NUMBER() OVER(
+        PARTITION BY s.customer_id
+        ORDER BY COUNT(s.customer_id) DESC
+    ) AS order_rank
+    FROM sales AS s JOIN menu AS m
+    ON s.product_id = m.product_id
+    GROUP BY s.customer_id, m.product_name
+)
+
+SELECT * from popular_order_cte where order_rank=1;
+
+```
+|Customer Id|Product Name|Order Count| Order Rank|
+|---|---|---|
+|A| ramen|3|1|
+|B| sushi|2|1|
+|C| ramen|3|1|
+
+Looks like A & C are on the same team Ramen while Customer B prefers Sushi. I'm gonna side with B.
+
+
 
 # Bonus Questions! 💃🏻 <a name="bonus-questions"></a>
 ---------------
-Well, we've come so far, why not help Danny out ust a little more?
+Well, we've come so far, why not help Danny out just a little more?
 
 ### Bonus Question 1: Recreate the Member or Not table with a Y/N column.
 

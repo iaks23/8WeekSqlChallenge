@@ -137,9 +137,89 @@ Customer B seems to be a frequent visitor, Danny's Diner needs to start thinking
 ---------------
 Well, we've come so far, why not help Danny out ust a little more?
 
+### Bonus Question 1: Recreate the Member or Not table with a Y/N column.
+
+### Difficulty Level: 🔘🔘🔘
+
+```sql
+
+SELECT s.customer_id, s.order_date, m.product_name, m.price,
+CASE 
+    WHEN mem.join_date > s.order_date THEN 'N'
+    WHEN mem.join_date <= s.order_date THEN 'Y'
+    ELSE 'N'
+    END AS valid_member
+FROM sales AS s LEFT JOIN menu AS m ON s.product_id = m.product_id 
+LEFT JOIN members AS mem
+ON s.customer_id = mem.customer_id;
+
+```
+|Customer Id|Order Date|Product Name|Price|Valid Member|
+|---|---|---|---|---|
+|A| 2021-01-01| sushi| 10| N|
+|A| 2021-01-01| curry| 15| N|
+|A| 2021-01-07| curry| 15| Y|
+|A| 2021-01-10| ramen| 12| Y|
+|A| 2021-01-11| ramen| 12| Y|
+|A| 2021-01-11| ramen| 12| Y|
+|B| 2021-01-01| curry| 15| N|
+|B| 2021-01-02| curry| 15| N|
+|B| 2021-01-04| sushi| 10| N|
+|B| 2021-01-11| sushi| 10| Y|
+|B| 2021-01-16| ramen| 12| Y|
+|B| 2021-02-01| ramen| 12| Y|
+|C| 2021-01-01| ramen| 12| N|
+|C| 2021-01-01| ramen| 12| N|
+|C| 2021-01-07| ramen| 12| N|
+
+### Bonus Question 2: Rank all items!
+
+### Difficulty Level: 🔘🔘🔘🔘
+
+```sql
 
 
+WITH overall_rank_cte AS(
+SELECT s.customer_id, s.order_date, m.product_name, m.price,
+CASE 
+    WHEN mem.join_date > s.order_date THEN 'N'
+    WHEN mem.join_date <= s.order_date THEN 'Y'
+    ELSE 'N'
+    END AS valid_member
+FROM sales AS s LEFT JOIN menu AS m ON s.product_id = m.product_id 
+LEFT JOIN members AS mem
+ON s.customer_id = mem.customer_id
+)
 
+SELECT *,
+CASE
+WHEN valid_member = 'N' THEN NULL
+ELSE
+RANK () OVER(PARTITION BY customer_id, valid_member
+ORDER BY order_date) 
+END AS member_ranking
+FROM overall_rank_cte;
+
+
+```
+
+|Customer Id|Order Date|Product Name|Price|Valid Member|Member Ranking|
+|---|---|---|---|---|---|
+|A| 2021-01-01| sushi| 10| N| NULL|
+|A| 2021-01-01| curry| 15| N| NULL|
+|A| 2021-01-07| curry| 15| Y| 1|
+|A| 2021-01-10| ramen| 12| Y| 2|
+|A| 2021-01-11| ramen| 12| Y| 3|
+|A| 2021-01-11| ramen| 12| Y| 3|
+|B| 2021-01-01| curry| 15| N| NULL|
+|B| 2021-01-02| curry| 15| N| NULL|
+|B| 2021-01-04| sushi| 10| N| NULL|
+|B| 2021-01-11| sushi| 10| Y| 1|
+|B| 2021-01-16| ramen| 12| Y| 2|
+|B| 2021-02-01| ramen| 12| Y| 3|
+|C| 2021-01-01| ramen| 12| N| NULL|
+|C| 2021-01-01| ramen| 12| N| NULL|
+|C| 2021-01-07| ramen| 12| N| NULL|
 
 
 

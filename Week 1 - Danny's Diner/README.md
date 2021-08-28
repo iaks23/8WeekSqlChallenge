@@ -206,12 +206,127 @@ SELECT * from popular_order_cte where order_rank=1;
 
 ```
 |Customer Id|Product Name|Order Count| Order Rank|
-|---|---|---|
+|---|---|---|---|
 |A| ramen|3|1|
 |B| sushi|2|1|
 |C| ramen|3|1|
 
 Looks like A & C are on the same team Ramen while Customer B prefers Sushi. I'm gonna side with B.
+
+#### Question 6: Which item was purchased first by the customer after they became a member?
+
+#### Difficulty Level: 🔘🔘🔘
+
+```sql
+
+WITH member_cte AS (
+    SELECT s.customer_id, mem.join_date, s.order_date, s.product_id,
+    ROW_NUMBER() OVER(
+        PARTITION BY s.customer_id
+        ORDER BY s.order_date) AS order_rank
+    FROM sales AS s JOIN members AS mem
+    ON s.customer_id = mem.customer_id
+    WHERE s.order_date >= mem.join_date
+    )
+    SELECT s.customer_id, s.order_date, m.product_name
+     from member_cte AS s JOIN menu AS m 
+     ON s.product_id = m.product_id
+     WHERE order_rank = 1;
+
+
+```
+|Customer Id|Order Date|Product Name|
+|---|---|---|
+|A| 2021-01-07|curry|
+|B| 2021-01-11|sushi|
+
+#### Question 7: Which item was purchased just before the customer became a member?
+
+#### Difficulty Level: 🔘🔘
+
+```sql
+
+WITH member_cte AS (
+
+    SELECT s.customer_id, mem.join_date, s.order_date, s.product_id,
+    DENSE_RANK() OVER(
+        PARTITION BY s.customer_id
+        ORDER BY s.order_date DESC) AS order_rank
+    FROM sales AS s JOIN members AS mem
+    ON s.customer_id = mem.customer_id
+    WHERE s.order_date < mem.join_date
+    )
+    SELECT s.customer_id, s.order_date, m.product_name 
+    FROM member_cte s JOIN menu m 
+    ON s.product_id = m.product_id
+    WHERE order_rank=1;
+
+
+```
+|Customer Id|Order Date|Product Name|
+|---|---|---|
+|A| 2021-01-01|sushi|
+|A| 2021-01-01|curry|
+|B| 2021-01-04|sushi|
+
+Customer A & B both had sushi ust before they became memmbers, looks like it might've been the deciding dish!
+
+
+#### Question 8: What is the total items and amount spent for each member before they became a member?
+
+#### Difficulty Level: 🔘🔘
+
+```sql
+
+SELECT s.customer_id, COUNT(s.product_id) AS items_bought, SUM(m.price) AS total_amount
+FROM sales AS s 
+JOIN members AS mem
+ON s.customer_id = mem.customer_id
+JOIN menu AS m 
+ON s.product_id = m.product_id
+WHERE s.order_date < mem.join_date
+GROUP BY s.customer_id;
+
+
+```
+|Customer Id|Items Bought|Total Amount|
+|---|---|---|
+|A| 2|25|
+|B| 3|40|
+
+Customer B remains the biggest spender even after the membership program! That's some loyalty.
+
+
+#### Question 9: If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+
+#### Difficulty Level: 🔘🔘🔘🔘
+
+```sql
+
+WITH points_cte AS(
+    SELECT *,
+    CASE
+    WHEN product_id= 1
+    THEN price * 20
+    ELSE price * 10
+    END AS points
+    FROM menu
+)
+SELECT s.customer_id, SUM(p.points) AS total_points
+FROM sales AS s JOIN points_cte AS p 
+ON s.product_id = p.product_id
+GROUP BY s.customer_id;
+
+
+```
+|Customer Id|Total Points|
+|---|---|
+|A| 860|
+|B| 940|
+|C| 360|
+
+Customer B takes the lead with 940 points, followed by A with 860, and C with 360. Hope they use these points up for some good discounts!
+
 
 
 
@@ -304,9 +419,12 @@ FROM overall_rank_cte;
 |C| 2021-01-07| ramen| 12| N| NULL|
 
 
-
+----------------------
 
 
 Is it just me, or is anybody else really hungry for some ramen? Feedback & suggestions are welcome!
+
+----------------------
+
 © Akshaya Parthasarathy, 2021
 

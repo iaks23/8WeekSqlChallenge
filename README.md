@@ -31,3 +31,10 @@ Danny Ma's 8 WEEK SQL Challenge, An interesting take on applying SQL in real wor
 -----------------
 
 © Akshaya Parthasarathy, 2021
+
+For feedback or suggestions on improvements or even a quick chat, I am available on,
+
+[![LINKEDIN](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akshaya-parthasarathy23)
+[![INSTAGRAM](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/aks_sarathy/)
+[![REDDIT](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)](https://www.reddit.com/user/longstoryshort_)
+

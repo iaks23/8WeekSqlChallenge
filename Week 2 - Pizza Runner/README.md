@@ -53,6 +53,6 @@ For more information regarding the tables, their descriptions, and schema make s
 
 ## Data Cleaning 🧹 <a name="cleaning"></a>
 
-Upon first glance, it is evident that we cannot dive headfirst into solving the queries without doing a little bit of grunt work. This calls for a little bit of data cleaning on the <code> customer_orders </code> table and the <code> runner_orders </code> table to transform the null values, unwanted suffixes, and even alter column types for easier data manipulation. 
+Upon first glance, it is evident that we cannot dive headfirst into solving the queries without doing a little bit of grunt work. This calls for a little bit of data cleaning on the <code>customer_orders</code> table and the <code>runner_orders</code> table to transform the null values, unwanted suffixes, and even alter column types for easier data manipulation. 
 
 I have tried tackling this in two ways...

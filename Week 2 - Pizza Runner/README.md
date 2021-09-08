@@ -47,6 +47,12 @@ Danny has shared with you 6 interconnected datasets for this case study:
 
 Below is the entity relationship diagram of the datasets available with Danny.
 
-![ER]()
+![ER](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/ER.png)
 
 For more information regarding the tables, their descriptions, and schema make sure to take a look [here](https://8weeksqlchallenge.com/case-study-2/)
+
+## Data Cleaning 🧹 <a name="cleaning"></a>
+
+Upon first glance, it is evident that we cannot dive headfirst into solving the queries without doing a little bit of grunt work. This calls for a little bit of data cleaning on the <code> customer_orders </code> table and the <code> runner_orders </code> table to transform the null values, unwanted suffixes, and even alter column types for easier data manipulation. 
+
+I have tried tackling this in two ways...

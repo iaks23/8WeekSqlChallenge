@@ -36,7 +36,7 @@ Danny has shared with you 3 key datasets for this case study:
 ---------------
 
   
-# Datasets 💻 <a name="datasets"></a>
+## Datasets 💻 <a name="datasets"></a>
  
 All datasets exist within the <code> dannys_diner </code> database schema - be sure to include this reference within your SQL scripts as you start exploring the data and answering the case study questions. 
 You can find that in my profile under <code> schema.sql </code> file!

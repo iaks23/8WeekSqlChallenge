@@ -24,6 +24,7 @@ Danny Ma's 8 WEEK SQL Challenge, An interesting take on applying SQL in real wor
 
 # Week 2: Pizza Runner 🛵 <a name="pizza-runner"></a>
 
+![dancingpizza](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/pizza.GIF)
 
 ## [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%202%20-%20Pizza%20Runner)
 

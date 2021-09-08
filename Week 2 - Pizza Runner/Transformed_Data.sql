@@ -33,3 +33,13 @@ SELECT order_id, runner_id,
 INTO new_runner_orders
 FROM runner_orders
 SELECT * FROM new_runner_orders;
+
+/*Altering Table Columns*/
+
+/*You must also alter PICKUP_TIME as DATETIME, I was not able to create the table with the previous data type so I am not including the code here */
+
+ALTER table new_runner_orders 
+ALTER COLUMN duration INT;
+
+ALTER table new_runner_orders 
+ALTER COLUMN distance FLOAT;

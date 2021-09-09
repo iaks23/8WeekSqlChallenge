@@ -43,3 +43,10 @@ ALTER COLUMN duration INT;
 
 ALTER table new_runner_orders 
 ALTER COLUMN distance FLOAT;
+
+
+
+/* Changing Data Type of TEXT to VARCHAR */
+
+ALTER table pizza_names 
+ALTER COLUMN pizza_name VARCHAR(30);

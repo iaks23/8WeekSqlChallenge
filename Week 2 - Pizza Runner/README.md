@@ -265,9 +265,113 @@ SELECT MAX(number_of_orders) AS max_pizza FROM max_order_cte;
 
 Three pizzas in a single order, that mustve been quite the party!
     
+### Q7: For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+    
+LEVEL: :three:
 
     
+```sql
     
+SELECT c.customer_id,
+SUM(CASE 
+        WHEN c.exclusions != ' ' OR c.extras != ' ' THEN 1  
+        ELSE 0
+        END) AS atleast_one_change,
+SUM(CASE 
+        WHEN c.exclusions = ' ' AND c.extras = ' ' THEN 1
+        ELSE 0
+        END) AS no_changes 
+FROM new_cust_orders AS c JOIN 
+new_runner_orders AS r ON 
+c.order_id = r.order_id 
+WHERE r.duration != 0
+GROUP BY c.customer_id 
+    
+```
+
+|customer_id|atleast_one_change|no_changes|
+|---|---|---|
+|101|0| 2|
+|102|0| 3|
+|103|3| 0|
+|104|2| 1|
+|105|1| 0|
+
+Looks like cutomer 101, and 102 love Danny's pizzas as they are but 103 & 105 can't seem to have it without a few modifications. 
+ 
+### Q8: How many pizzas were delivered that had both exclusions and extras?
+    
+LEVEL: :three:
+
+    
+```sql
+    
+SELECT c.customer_id,  
+SUM(CASE 
+        WHEN c.exclusions IS NOT NULL AND c.extras  IS NOT NULL THEN 1 
+        ELSE 0 
+        END) AS pizza_with_changes
+FROM new_cust_orders AS c JOIN 
+new_runner_orders AS r ON 
+c.order_id = r.order_id 
+WHERE r.duration != 0 AND c.exclusions != ' ' AND c.extras != ' '
+GROUP BY c.customer_id  
+```
+|customer_id|pizza_with_changes|
+|---|
+|104|1|
+
+Looks like customer 104 is really picky about their toppings!
+    
+### Q9: What was the total volume of pizzas ordered for each hour of the day? 
+    
+LEVEL: :two:
+
+    
+```sql
+    
+SELECT DATEPART(HOUR, order_time) AS hour_of_day, 
+COUNT(order_id) AS pizzas_ordered 
+FROM new_cust_orders
+GROUP BY DATEPART(HOUR, order_time)
+    
+```
+
+|hour_of_day|pizzas_ordered|
+|---|---|
+|11| 1|
+|13| 3|
+|18| 3|
+|19| 1|
+|21| 3|
+|23| 3|
+
+Looks like the busiest time for pizza runners was 1 P.M. , 6 P.M., 9 P.M. and 11 P.M. Might be time to roll out peak hour delivery rates to up the sales numbers!
+
+> Tip: You can perform this and the next question with the help of EXTRACT function if you're using MySQL.
+    
+### Q10: What was the volume of orders for each day of the week?
+    
+LEVEL: :two:
+
+    
+```sql
+    
+SELECT DATENAME(WEEKDAY, order_time) AS day_of_week,
+COUNT(order_id) AS volume_of_pizzas
+FROM new_cust_orders
+GROUP BY DATENAME(WEEKDAY, order_time);
+    
+```
+
+|hour_of_day|pizzas_ordered|
+|---|---|
+|Friday| 1|
+|Saturday| 5|
+|Thursday| 3|
+|Wednesday| 5|
+
+It's no surprise that Saturday seems to top the list for most sales cause there's no weekend without pizza! An interesting number here is that the highest sales also happen to be on Wednsday? Maybe pizza helps fight midweek blues? 
     
 </details> 
 

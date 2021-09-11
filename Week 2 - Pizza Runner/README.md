@@ -174,7 +174,100 @@ WHERE duration!= 0
 GROUP BY runner_id;
     
 ```
-  
+
+|runner_id|successful_orders|
+|---|---|
+|1| 4|
+|2| 3|
+|3| 1|
+    
+Looks like runner 1 has been having quite a busy time successfully getting the pizzas! Make sure to tip him extra!
+    
+    
+### Q4: How many of each type of pizza was delivered?
+    
+LEVEL: :two:
+
+    
+```sql
+    
+SELECT p.pizza_name, COUNT(c.pizza_id) AS delivered_pizzas
+FROM new_cust_orders AS c 
+JOIN new_runner_orders AS r
+ON c.order_id = r.order_id
+JOIN pizza_names AS p 
+ON c.pizza_id = p.pizza_id
+WHERE r.duration != 0
+GROUP BY p.pizza_name;
+    
+```
+
+|pizza_name|delivered_pizzas|
+|---|---|
+|Meatlovers| 9|
+|Vegetarian| 3|
+
+    
+The meatlovers pizza seems to be quite hit! 
+    
+### Q5: How many Vegetarian and Meatlovers were ordered by each customer?
+    
+LEVEL: :two:
+
+    
+```sql
+    
+SELECT c.customer_id, p.pizza_name, COUNT(p.pizza_name) AS order_count 
+FROM new_cust_orders AS c 
+JOIN pizza_names AS p 
+ON c.pizza_id = p.pizza_id
+GROUP BY c.customer_id, p.pizza_name
+ORDER BY c.customer_id; 
+    
+```
+
+|customer_id|pizza_name|order_count|
+|---|---|---|
+|101|Meatlovers| 2|
+|101|Vegetarian| 1|
+|102|Meatlovers| 2|
+|102|Vegetarian| 1|
+|103|Meatlovers| 3|
+|103|Vegetarian| 1|
+|104|Meatlovers| 3|
+|105|Vegetarian| 1|
+    
+Looks like all customers have given both the pizzas a try, but still prefer to reorder the Meatlovers a lot more! Maybe we can figure out the topping options in the vegatrian to push the sales up!
+    
+### Q6: What was the maximum number of pizzas delivered in a single order?
+    
+LEVEL: :two:
+
+    
+```sql
+    
+WITH max_order_cte AS (
+
+SELECT c.order_id, COUNT(c.pizza_id) AS number_of_orders 
+FROM new_cust_orders AS c JOIN 
+new_runner_orders AS r 
+ON c.order_id = r.order_id
+GROUP BY c.order_id
+
+)
+
+SELECT MAX(number_of_orders) AS max_pizza FROM max_order_cte;
+    
+```
+|max_order_cte|
+|---|
+|3|
+
+Three pizzas in a single order, that mustve been quite the party!
+    
+
+    
+    
     
 </details> 
 

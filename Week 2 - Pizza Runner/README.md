@@ -153,11 +153,27 @@ Level: 1️⃣
 LEVEL: 1️⃣
     
 ```sql
-    SELECT COUNT(DISTINCT(order_id)) AS unique_cust_orders FROM new_cust_orders;
-    ```
+  SELECT COUNT(DISTINCT(order_id)) AS unique_cust_orders FROM new_cust_orders;
+```
+    
 |unique_cust_orders|
 |---|
 |10|
+    
+    
+### Q3: How many successful orders were delivered by each runner? 
+    
+LEVEL: 1️⃣
+
+    
+```sql
+    
+SELECT runner_id, COUNT(*) AS successful_orders 
+FROM new_runner_orders 
+WHERE duration!= 0
+GROUP BY runner_id;
+    
+```
   
     
 </details> 

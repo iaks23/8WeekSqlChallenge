@@ -129,7 +129,7 @@ ALTER COLUMN pizza_name VARCHAR(30);
 ```
 -------
 
-## Case Study Solutions 🔑
+## Case Study Solutions 🔑 <a name="case-study-solutions"></a>
 
 <details> 
     <summary>
@@ -143,6 +143,22 @@ Level: 1️⃣
  ```sql
    SELECT COUNT(*) AS total_pizza_orders FROM new_cust_orders;
  ```
+ 
+|total_pizza_orders|
+|---|
+|14|
+    
+### Q2: How many unique customer orders were made?
+
+LEVEL: 1️⃣
+    
+```sql
+    SELECT COUNT(DISTINCT(order_id)) AS unique_cust_orders FROM new_cust_orders;
+    ```
+|unique_cust_orders|
+|---|
+|10|
+  
     
 </details> 
 

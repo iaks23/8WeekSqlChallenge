@@ -53,6 +53,78 @@ For more information regarding the tables, their descriptions, and schema make s
 
 ## Data Cleaning 🧹 <a name="cleaning"></a>
 
-Upon first glance, it is evident that we cannot dive headfirst into solving the queries without doing a little bit of grunt work. This calls for a little bit of data cleaning on the <code>customer_orders</code> table and the <code>runner_orders</code> table to transform the null values, unwanted suffixes, and even alter column types for easier data manipulation. 
+Upon first glance, it is evident that we cannot dive headfirst into solving the queries without doing a little bit of grunt work. This calls for a bit of data cleaning on the <code>customer_orders</code> table and the <code>runner_orders</code> table to transform the null values, unwanted suffixes, and even alter column types to mmatch the SQL environment I am working with. 
 
 I have tried tackling this in two ways...
+
+### Method 1: DML Commands 
+
+When presented with a table containing NULL/null values, you can always update the entries of the table to be uniform. I have implemented the same for <code> customer_orders </code> table, by cloning it into a new table called <code> new_cust_orders </code>
+
+```sql
+SELECT * into new_cust_orders FROM customer_orders;
+UPDATE new_cust_orders SET exclusions = ' ' WHERE exclusions IS NULL OR exclusions = 'null'
+UPDATE new_cust_orders SET extras = ' ' WHERE extras IS NULL OR extras = 'null'
+SELECT * FROM new_cust_orders;
+```
+
+✅ Pros: Simple command, only knowledge of DML is required. Works in cases where one uniform value has to be set for all columns. 
+🛑 Cons: Cannot be utilized for varying conditions of values in the same table. Multiple updates would be rwquired for that, not very optimized. 
+
+### Method 2: CASE 
+
+An immediate go-to solution for when you have to clean up multiple values in multiple columns. I have implemented this on the <code> runner_orders </code> table, by cloning it into a new table called <code> new_runner_orders </code>
+
+```sql
+/* Data Cleaning & Transformation- Method 2 */
+SELECT * from runner_orders;
+SELECT order_id, runner_id,
+    CASE 
+        WHEN pickup_time LIKE 'null' THEN ' '
+        ELSE pickup_time
+        END AS pickup_time,
+    CASE 
+        WHEN distance LIKE 'null' THEN ' '
+        WHEN distance LIKE '%km' THEN TRIM('km' from distance)
+        ELSE distance
+        END AS distance,
+    CASE 
+        WHEN duration LIKE 'null' THEN ' '
+        WHEN duration LIKE '%minutes' THEN TRIM('minutes' from duration)
+        WHEN duration LIKE '%minute' THEN TRIM('minute' from duration)
+        WHEN duration LIKE '%mins' THEN TRIM('mins' from duration)
+        ELSE duration
+        END AS duration,
+    CASE 
+        WHEN cancellation IS NULL THEN ' '
+        WHEN cancellation like 'null' THEN ' '
+        ELSE cancellation
+        END AS cancellation
+INTO new_runner_orders
+FROM runner_orders
+SELECT * FROM new_runner_orders;
+```
+✅ Pros: Multiple cleaning issues tackled in one consise query. 
+
+### Column Altering
+
+In order to make sure that certain columns are compatible with MS SQL environment so that data manipulations can be performed, they need to be altered. This is purely dependent on the type of SQL environment you are using.
+
+```sql
+ALTER table new_runner_orders 
+ALTER COLUMN duration INT;
+
+ALTER table new_runner_orders 
+ALTER COLUMN distance FLOAT;
+
+You must also alter <code> PICKUP_TIME </code> as DATETIME, I was not able to create the table with the previous data type so I am not including the code here.
+
+/* Changing Data Type of TEXT to VARCHAR */
+
+ALTER table pizza_names 
+ALTER COLUMN pizza_name VARCHAR(30);
+
+```
+
+
+

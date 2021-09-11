@@ -127,6 +127,9 @@ ALTER table pizza_names
 ALTER COLUMN pizza_name VARCHAR(30);
 
 ```
+-------
+
+## Case Study Solutions 🔑
 
 
 

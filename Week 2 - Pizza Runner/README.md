@@ -131,5 +131,28 @@ ALTER COLUMN pizza_name VARCHAR(30);
 
 ## Case Study Solutions 🔑
 
+<details> 
+    <summary>
+        PART A:
+    </summary>
+    
+### Q1: How many pizzas were ordered?
+    
+Level: 1️⃣
+    
+ ```sql
+   SELECT COUNT(*) AS total_pizza_orders FROM new_cust_orders;
+ ```
+    
+</details> 
+
+-------
+
+<details> 
+    <summary>
+        PART B:
+    </summary>
+    
+</details> 
 
 

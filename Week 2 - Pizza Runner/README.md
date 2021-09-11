@@ -69,6 +69,8 @@ SELECT * FROM new_cust_orders;
 ```
 
 ✅ Pros: Simple command, only knowledge of DML is required. Works in cases where one uniform value has to be set for all columns. 
+
+
 🛑 Cons: Cannot be utilized for varying conditions of values in the same table. Multiple updates would be rwquired for that, not very optimized. 
 
 ### Method 2: CASE 

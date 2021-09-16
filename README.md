@@ -1,8 +1,9 @@
 
-[![LOL BADGE](https://forthebadge.com/images/badges/works-on-my-machine.svg)]()     [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)     [![SQLBADGE](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)](https://www.microsoft.com/en-us/sql-server/sql-server-2019)     [![CATS](https://forthebadge.com/images/badges/contains-cat-gifs.svg)]()
-
 # 8WeekSqlChallenge
-Danny Ma's 8 WEEK SQL Challenge, An interesting take on applying SQL in real world scenarios. 
+Danny Ma's 8 WEEK SQL Challenge -- An interesting take on applying SQL in real world scenarios. 
+
+> [![SQLBADGE](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)](https://www.microsoft.com/en-us/sql-server/sql-server-2019)    
+> [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)  [![CATS](https://forthebadge.com/images/badges/contains-cat-gifs.svg)]()
 
 ## TABLE OF CONTENTS 📖
 

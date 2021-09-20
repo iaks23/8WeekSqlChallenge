@@ -14,35 +14,35 @@
 
 ## TABLE OF CONTENTS 📖
 
-##  [Week 1: Danny's Diner 🍜](#danny's-diner)
+####  [Week 1: Danny's Diner 🍜](#danny's-diner)
 
-##  [Week 2: Pizza Runner 🛵](#pizza-runner)
-
-
+####  [Week 2: Pizza Runner 🛵](#pizza-runner)
 
 
 
 
 
-# Week 1: Danny's Diner 🍜 <a name="danny's-diner"></a>
+
+
+## Week 1: Danny's Diner 🍜 <a name="danny's-diner"></a>
 
 <p align="center">
   <img width="350" height="350" src="https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/dd.png">
 </p>
 
-## [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%201%20-%20Danny's%20Diner)
+### [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%201%20-%20Danny's%20Diner)
 
-# Week 2: Pizza Runner 🛵 <a name="pizza-runner"></a>
+## Week 2: Pizza Runner 🛵 <a name="pizza-runner"></a>
 
 <p align="center">
   <img width="350" height="350" src="https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/pizza.png">
 </p>
 
-## [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%202%20-%20Pizza%20Runner)
+### [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%202%20-%20Pizza%20Runner)
 
 -----------------
 
-### On-Going Project
+#### On-Going Project
 
 -----------------
 

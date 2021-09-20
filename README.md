@@ -1,9 +1,16 @@
 
-# 8WeekSqlChallenge
-Danny Ma's 8 WEEK SQL Challenge -- An interesting take on applying SQL in real world scenarios. 
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)        [![CATS](https://forthebadge.com/images/badges/contains-cat-gifs.svg)]()
 
-> [![SQLBADGE](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)](https://www.microsoft.com/en-us/sql-server/sql-server-2019)    
-> [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)  [![CATS](https://forthebadge.com/images/badges/contains-cat-gifs.svg)]()
+<img align="left" width="240" height="35" src="https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white"> 
+
+<br>
+
+
+# 8WeekSqlChallenge
+> Danny Ma's 8 WEEK SQL Challenge -- An interesting take on applying SQL in real world scenarios. 
+
+  
+
 
 ## TABLE OF CONTENTS 📖
 
@@ -19,13 +26,17 @@ Danny Ma's 8 WEEK SQL Challenge -- An interesting take on applying SQL in real w
 
 # Week 1: Danny's Diner 🍜 <a name="danny's-diner"></a>
 
-![littlesushi](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/DD-1.GIF)
+<p align="center">
+  <img width="350" height="350" src="https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/dd.png">
+</p>
 
 ## [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%201%20-%20Danny's%20Diner)
 
 # Week 2: Pizza Runner 🛵 <a name="pizza-runner"></a>
 
-![dancingpizza](https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/pizza.GIF)
+<p align="center">
+  <img width="350" height="350" src="https://github.com/iaks23/8WeekSqlChallenge/blob/main/img/pizza.png">
+</p>
 
 ## [Click here to view the solutions! 🔑](https://github.com/iaks23/8WeekSqlChallenge/tree/main/Week%202%20-%20Pizza%20Runner)
 

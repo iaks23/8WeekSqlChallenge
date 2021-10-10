@@ -359,40 +359,33 @@ There are 4 conditions to be checked for:
 
 ```sql
 
-SELECT v.customer_id, v.join_date, v.valid_date, v.last_date, s.order_date, m.product_name, m.price,
+SELECT sales.customer_id,
 SUM(CASE
-    WHEN s.order_date >= v.join_date AND s.order_date < v.valid_date THEN 2 * 10 * m.price 
-    WHEN m.product_name = 'SUSHI' THEN 2 * 10 * m.price
-    ELSE 10 * m.price 
-    END) AS points 
-FROM valid_dates_cte AS v JOIN
-sales AS s ON v.customer_id = s.customer_id 
-JOIN menu AS m 
-ON s.product_id = m.product_id
-WHERE s.order_date < v.last_date
-GROUP BY v.customer_id, s.order_date, v.join_date, v.valid_date, v.last_date, m.product_name, m.price;
+  WHEN sales.order_date >= (members.join_date) AND sales.order_date <= (members.join_date::DATE + Interval '6 days') THEN 20 * menu.price
+  WHEN menu.product_name = 'sushi' THEN 20 * menu.price
+  ELSE 10 * menu.price
+  END) AS points
+FROM dannys_diner.sales INNER JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id
+INNER JOIN dannys_diner.members
+ON sales.customer_id = members.customer_id
+WHERE sales.order_date < '2021-01-31'::DATE
+GROUP BY sales.customer_id
+ORDER BY points;
 
 
 ```
 
 
-|Customer Id|Join Date|Valid Date|Last Date|Order Date| Product Name|Price|Points|
-|---|---|---|---|---|---|---|---|
-|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-01| curry| 15| 150|
-|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-01| sushi| 10| 200|
-|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-07| curry| 15| 300|
-|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-10| ramen| 12| 240|
-|A| 2021-01-07| 2021-01-13| 2021-01-31| 2021-01-11| ramen| 12| 480|
-|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-01| curry| 15| 150|
-|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-02| curry| 15| 300|
-|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-04| sushi| 10| 200|
-|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-11| sushi| 10| 400|
-|B| 2021-01-09| 2021-01-15| 2021-01-31| 2021-01-16| ramen| 12| 120|
+|Customer Id|Points|
+|---|---|
+|A|1370|
+|B|820|
 
 
 By the end of January:
 
-Customer A's total points: 1130
+Customer A's total points: 1370
 Customer B's total points: 820
 
 
